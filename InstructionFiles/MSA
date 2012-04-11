@@ -1,0 +1,73 @@
+MSA(LOCAL)                                                          MSA(LOCAL)
+
+
+
+NNAAMMEE
+       MSA - Multiple Sequences Alignment
+
+SSYYNNOOPPSSIISS
+       MMSSAA [[ooppttiioonnss]] _-_f _-_B _-_d _-_i _-_w _-_p _-_I _-_a _-_r _-_D _-_O _-_o _-_h
+
+AAVVAAIILLAABBIILLIITTYY
+       Unix
+
+DDEESSCCRRIIPPTTIIOONN
+       Multiple  sequences alignment for amino acid (AA) sequences. Built with
+       iteration scheme to maximize alignment score. RBLAST  glocal  alignment
+       was used during each single alignment step to ensure high quality local
+       and global alignment. The alignment result ["Res.msa" by  default]  can
+       be  further  analyzed  by  CoupleEnerge to estimate co-mutation between
+       positions.
+
+UUSSAAGGEE
+       A simple call as "./MSA -f seq.fasta" will work assuming  default  set‐
+       tings. See OPTIONS for more details.
+
+OOPPTTIIOONNSS
+       -f  [xxx.fasta]  Name  of  the file with the fasta sequences to be ana‐
+       lyzed.
+
+       -B Use BLOSUM scoring scheme. The program use PAM scoring by default.
+
+       -d ['s','p','g'] Evolutionary distance calculation scheme. 's' for sim‐
+       ple[default], 'p' for poisson, 'g' for gamma.
+
+       -i  [n] Need a number. For PAM, it is a value between 1 and 400[default
+       is 250]. For BLOSUM, specify a value between 1 and 100[default is 62]
+
+       -w [n] A number between 2[default] and 5. The word length used to  con‐
+       struct sequence library.
+
+       -p [n] A number <=0 [default -3]. Gap penalty.
+
+       -I Disable iteration. Iteration is on by default.
+
+       -a  [n]  An  integer  between  0 and 100. This metric specify anchoring
+       threshold used for iteration. Columns with identical amino acid propor‐
+       tion  larger  than  the  threshold  will be set as anchoring positions.
+       Iteration is conducted around these positions to maximize the alignment
+       score.
+
+       -r  [range]  Specify  the  indices  of sequences that will be analyzed.
+       Accept format like 1,5-7,  which  will  analyze  sequences  with  index
+       1,5,6,7  in  the  input file. Also accept a file with target sequences'
+       indices listed on separate lines.
+
+       -D Suppress displaying sequence name.
+
+       -O Whether to reorder the aligned sequences as their order  of  appear‐
+       ance in the input file. By default, sequences will be ordered according
+       to phylogenetic tree.
+
+       -o [filename] Output alignment result to "filename". By default  output
+       to Res.msa.
+
+       -h open this help file
+
+AAUUTTHHOORR
+       Xiaoyang Ruan
+
+
+
+
+                                                                    MSA(LOCAL)

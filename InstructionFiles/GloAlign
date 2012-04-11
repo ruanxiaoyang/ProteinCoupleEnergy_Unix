@@ -1,0 +1,63 @@
+GloAlign(LOCAL)                                                GloAlign(LOCAL)
+
+
+
+NNAAMMEE
+       GloAlign - Global Alignment
+
+SSYYNNOOPPSSIISS
+       GGllooAAlliiggnn [[ooppttiioonnss]] _-_f _-_B _-_d _-_i _-_Y _-_p _-_g _-_D _-_r _-_o _-_h
+
+AAVVAAIILLAABBIILLIITTYY
+       Unix
+
+DDEESSCCRRIIPPTTIIOONN
+       Pairwise  sequences  alignment  for  amino acid (AA) sequences assuming
+       global optimization. Built with PAM and BLOSUM scoring  schemes.  Ideal
+       for aligning sequences with similar length.
+
+UUSSAAGGEE
+       A  simple  call as "./GloAlign -f seq.fasta" will work assuming default
+       settings. See OPTIONS for more details.
+
+OOPPTTIIOONNSS
+       -f [xxx.fasta] Name of the file with the fasta  sequences  to  be  ana‐
+       lyzed.
+
+       -B Use BLOSUM scoring scheme. The program use PAM scoring by default.
+
+       -d ['s','p','g'] Evolutionary distance calculation scheme. 's' for sim‐
+       ple[default], 'p' for poisson, 'g' for gamma.
+
+       -i [n] Need a number. For PAM, it is a value between 1 and  400[default
+       is 250]. For BLOSUM, specify a value between 1 and 100[default is 62]
+
+       -Y  Use  dynamic  scoring  scheme.  e.g.  use  PAM40 scoring matrix for
+       sequences with evolutionary distance equal to PAM40. This option is not
+       valid for BLOSUM scoring.
+
+       -p [n] A number <=0 [default -1]. Gap penalty.
+
+       -g  [n]  Expect  a  number [default = 1]. The gamma parameter for gamma
+       distance estimation.
+
+       -D Suppress the pairwise alignment step -- in case you  only  want  the
+       pairwise evolutionary distance.
+
+       -r  [range]  Specify  the  indices  of sequences that will be analyzed.
+       Accept format like 1,5-7,  which  will  analyze  sequences  with  index
+       1,5,6,7  in  the  input file. Also accept a file with target sequences'
+       indices listed on separate lines.
+
+       -o [filename] Specify the name of file to store the pairwise evolution‐
+       ary distance. Default output to "Pairwise_Evo_Dist.txt".
+
+       -h open this help file
+
+AAUUTTHHOORR
+       Xiaoyang Ruan
+
+
+
+
+                                                               GloAlign(LOCAL)

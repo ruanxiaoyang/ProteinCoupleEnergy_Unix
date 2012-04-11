@@ -1,0 +1,42 @@
+.TH MSA LOCAL
+.SH NAME
+MSA - Multiple Sequences Alignment
+.SH SYNOPSIS
+.B MSA [options] 
+.I -f -B -d -i -w -p -I -a -r -D -O -o -h
+.SH AVAILABILITY
+Unix
+.SH DESCRIPTION
+Multiple sequences alignment for amino acid (AA) sequences. Built with iteration scheme to maximize alignment score. RBLAST glocal alignment was used during each single alignment step to ensure high quality local and global alignment. The alignment result ["Res.msa" by default] can be further analyzed by CoupleEnerge to estimate co-mutation between positions. 
+.SH USAGE
+A simple call as "./MSA -f seq.fasta" will work assuming default settings. See OPTIONS for more details. 
+.SH OPTIONS
+.TP
+-f [xxx.fasta] Name of the file with the fasta sequences to be analyzed.
+.TP
+-B Use BLOSUM scoring scheme. The program use PAM scoring by default.
+.TP
+-d ['s','p','g'] Evolutionary distance calculation scheme. 's' for simple[default], 'p' for poisson, 'g' for gamma.
+.TP
+-i [n] Need a number. For PAM, it is a value between 1 and 400[default is 250]. For BLOSUM, specify a value between 1 and 100[default is 62]
+.TP
+-w [n] A number between 2[default] and 5. The word length used to construct sequence library. 
+.TP
+-p [n] A number <=0 [default -3]. Gap penalty.
+.TP
+-I Disable iteration. Iteration is on by default.
+.TP
+-a [n] An integer between 0 and 100. This metric specify anchoring threshold used for iteration. Columns with identical amino acid proportion larger than the threshold will be set as anchoring positions. Iteration is conducted around these positions to maximize the alignment score.
+.TP
+-r [range] Specify the indices of sequences that will be analyzed. Accept format like 1,5-7, which will analyze sequences with index 1,5,6,7 in the input file. Also accept a file with target sequences' indices listed on separate lines.
+.TP
+-D Suppress displaying sequence name.
+.TP
+-O Whether to reorder the aligned sequences as their order of appearance in the input file. By default, sequences will be ordered according to phylogenetic tree.
+.TP
+-o [filename] Output alignment result to "filename". By default output to Res.msa.
+.TP
+-h open this help file  
+.SH AUTHOR
+Xiaoyang Ruan
+

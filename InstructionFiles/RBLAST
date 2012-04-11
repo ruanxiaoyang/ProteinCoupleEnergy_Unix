@@ -1,0 +1,61 @@
+RBLAST(LOCAL)                                                    RBLAST(LOCAL)
+
+
+
+NNAAMMEE
+       RBLAST - Glocal Alignment
+
+SSYYNNOOPPSSIISS
+       RRBBLLAASSTT [[ooppttiioonnss]] _-_f _-_B _-_d _-_i _-_w _-_p _-_D _-_r _-_o _-_h
+
+AAVVAAIILLAABBIILLIITTYY
+       Unix
+
+DDEESSCCRRIIPPTTIIOONN
+       Pairwise  sequences  alignment  for  amino acid (AA) sequences assuming
+       local and global  optimization.  Built  with  PAM  and  BLOSUM  scoring
+       schemes.  Ideal  for aligning sequences with large difference in length
+       or when expecting long gaps.  The  estimated  distances  are  based  on
+       blocks (do not consider gap opening).
+
+UUSSAAGGEE
+       A  simple  call  as  "./RBLAST -f seq.fasta" will work assuming default
+       settings. See OPTIONS for more details.
+
+OOPPTTIIOONNSS
+       -f [xxx.fasta] Name of the file with the fasta  sequences  to  be  ana‐
+       lyzed.
+
+       -B Use BLOSUM scoring scheme. The program use PAM scoring by default.
+
+       -d ['s','p','g'] Evolutionary distance calculation scheme. 's' for sim‐
+       ple[default], 'p' for poisson, 'g' for gamma.
+
+       -i [n] Need a number. For PAM, it is a value between 1 and  400[default
+       is 250]. For BLOSUM, specify a value between 1 and 100[default is 62]
+
+       -w  [n] A number between 2[default] and 5. The word length used to con‐
+       struct sequence library.
+
+       -p [n] A number <=0 [default -1]. Gap penalty.
+
+       -D Suppress the pairwise alignment step -- in case you  only  want  the
+       pairwise evolutionary distance.
+
+       -r  [range]  Specify  the  indices  of sequences that will be analyzed.
+       Accept format like 1,5-7,  which  will  analyze  sequences  with  index
+       1,5,6,7  in  the  input file. Also accept a file with target sequences'
+       indices listed on separate lines.
+
+       -o [filename] Specify the name of file to store the pairwise evolution‐
+       ary distance. Default output to "Pairwise_Block_Evo_Dist.txt".
+
+       -h open this help file
+
+AAUUTTHHOORR
+       Xiaoyang Ruan
+
+
+
+
+                                                                 RBLAST(LOCAL)

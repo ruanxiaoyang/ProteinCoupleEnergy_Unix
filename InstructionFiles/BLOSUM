@@ -1,0 +1,44 @@
+BLOSUM(LOCAL)                                                    BLOSUM(LOCAL)
+
+
+
+NNAAMMEE
+       BLOSUM - Construct blosum scoring matrix from sequence block file
+
+SSYYNNOOPPSSIISS
+       BBLLOOSSUUMM [[ooppttiioonnss]] _-_c _-_s _-_o _-_h
+
+AAVVAAIILLAABBIILLIITTYY
+       Unix
+
+DDEESSCCRRIIPPTTIIOONN
+       BLOSUM  calculates BLOcks of amino acid SUbstitution Matrix for protein
+       block file from convergence level 1  to  100.  It  uses  the  algorithm
+       advanced  by  STEVEN  HENIKOFF  AND JORJA G. HENIKOFF Proc. Natl. Acad.
+       Sci. USA Vol. 89, pp. 10915-10919.
+
+UUSSAAGGEE
+       BLOSUM uses "blocks.dat" located in working  dir  by  default.  Use  -c
+       option to specify custom block file. Just type "BLOSUM" (or "./BLOSUM")
+       in the command line will trigger the program to use "blocks.dat"  file.
+       By   default,  it  will  output  two  files  "RltvFreq.txt"  and  "BLO‐
+       SUM_score.txt". Use -s to suppress the output of RltvFreq.txt,  and  -o
+       "xxx" to customize the name of BLOSUM_score.txt.
+
+OOPPTTIIOONNSS
+       -c  *.*  use  customized block file. The script is defaulted to use the
+       blocks.dat comes with the program
+
+       -s suppress relative frequency output.
+
+       -o *.* customize the output name of scoring matrix
+
+       -h open this help file
+
+AAUUTTHHOORR
+       Xiaoyang Ruan
+
+
+
+
+                                                                 BLOSUM(LOCAL)

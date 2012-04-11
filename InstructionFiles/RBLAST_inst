@@ -1,0 +1,36 @@
+.TH RBLAST LOCAL
+.SH NAME
+RBLAST - Glocal Alignment
+.SH SYNOPSIS
+.B RBLAST [options] 
+.I -f -B -d -i -w -p -D -r -o -h
+.SH AVAILABILITY
+Unix
+.SH DESCRIPTION
+Pairwise sequences alignment for amino acid (AA) sequences assuming local and global optimization. Built with PAM and BLOSUM scoring schemes. Ideal for aligning sequences with large difference in length or when expecting long gaps. The estimated distances are based on blocks (do not consider gap opening).
+.SH USAGE
+A simple call as "./RBLAST -f seq.fasta" will work assuming default settings. See OPTIONS for more details. 
+.SH OPTIONS
+.TP
+-f [xxx.fasta] Name of the file with the fasta sequences to be analyzed.
+.TP
+-B Use BLOSUM scoring scheme. The program use PAM scoring by default.
+.TP
+-d ['s','p','g'] Evolutionary distance calculation scheme. 's' for simple[default], 'p' for poisson, 'g' for gamma.
+.TP
+-i [n] Need a number. For PAM, it is a value between 1 and 400[default is 250]. For BLOSUM, specify a value between 1 and 100[default is 62]
+.TP
+-w [n] A number between 2[default] and 5. The word length used to construct sequence library. 
+.TP
+-p [n] A number <=0 [default -1]. Gap penalty.
+.TP
+-D Suppress the pairwise alignment step -- in case you only want the pairwise evolutionary distance.
+.TP
+-r [range] Specify the indices of sequences that will be analyzed. Accept format like 1,5-7, which will analyze sequences with index 1,5,6,7 in the input file. Also accept a file with target sequences' indices listed on separate lines.
+.TP
+-o [filename] Specify the name of file to store the pairwise evolutionary distance. Default output to "Pairwise_Block_Evo_Dist.txt".
+.TP
+-h open this help file  
+.SH AUTHOR
+Xiaoyang Ruan
+
