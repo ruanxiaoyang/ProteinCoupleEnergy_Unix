@@ -5,7 +5,7 @@ to compile. This generates 5 executable programs in the working folder
 ./GloAlign
 ./RBLAST
 ./MSA
-./CoupleEnerge
+./CoupleEnergy
 
 For help, type "-h" after each program name
 e.g.
@@ -14,10 +14,10 @@ $ ./BLOSUM -h
 The package comes with the following sample files
 
 test.sampleseq.fasta 
-	A sample fasta file with 22 protein sequences, among which polymorphisms on position 9 "E/H", 22 "F/K", 46 "R/T"  are coupled [For position 9 and 22, 8 'E's comes with 'F', and 12 'H's comes with 'K']. Similarly, position 33 "G/Y" and position 58 "G/L" are coupled. These coupling sites were successfully captured by ./CoupleEnerge 
+	A sample fasta file with 22 protein sequences, among which polymorphisms on position 9 "E/H", 22 "F/K", 46 "R/T"  are coupled [For position 9 and 22, 8 'E's comes with 'F', and 12 'H's comes with 'K']. Similarly, position 33 "G/Y" and position 58 "G/L" are coupled. These coupling sites were successfully captured by ./CoupleEnergy 
 
 test.Res.msa
-	A multiple sequence alignment result file. Try "$ ./CoupleEnerge -f test.Res.msa"
+	A multiple sequence alignment result file. Try "$ ./CoupleEnergy -f test.Res.msa"
 
 Report any error to
 Ruan,Xiaoyang
