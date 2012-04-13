@@ -70,10 +70,14 @@ void CRlib(vector<sarray<int> > & _seqdb,const int & _wlen,vector<WDlibstr> & WD
 	WDlibvec.resize(_seqdb.size());
 	vector<getwdlibstr> dtstr(CPUNUM);
 	pthread_t threads[CPUNUM];
+	int code;
 	for(int i=0;i<CPUNUM;++i)
-	{
-		dtstr[i]={&_seqdb,&WDlibvec,_wlen,i};
-		pthread_create(&threads[i],NULL,THCRlib,(void*)&dtstr[i]);
+	{	dtstr[i]={&_seqdb,&WDlibvec,_wlen,i};
+		code=pthread_create(&threads[i],NULL,THCRlib,(void*)&dtstr[i]);
+		if(code != 0)
+		{	cout<<"Thread number exceeded system limit. You are running "<<CPUNUM<<" CPUs. Change to a smaller number with -c option"<<endl;
+			exit(0);
+		}
 	}
 	for(int i=0;i<CPUNUM;++i)
 		pthread_join(threads[i],NULL);
@@ -494,10 +498,14 @@ void RBLAST(vector<sarray<int> > & _seqdb,const int & _wlen,vector<darray<type> 
 	vector<getRBLASTstr<type> > dtstr(CPUNUM);
 	vector<WDlibstr> WDlibvec;
         CRlib(_seqdb,_wlen,WDlibvec);
-
+	int code=0;
 	for(int i=0;i<CPUNUM;++i)
 	{	dtstr[i]={&_seqdb,&WDlibvec,&_scmatxvec,&alnmatxvec,&ttm,&alnscore,&alnngscore,&distmatx,&varmatx,&smltmatx,_wlen,_scmatxid,_gappnt,_sctype,_distype,i};
-		pthread_create(&threads[i],NULL,_THRBLAST<type>,(void*)&dtstr[i]);
+		code=pthread_create(&threads[i],NULL,_THRBLAST<type>,(void*)&dtstr[i]);
+		if(code != 0)
+		{	cout<<"Thread number exceeded system limit. You are running "<<CPUNUM<<" CPUs. Change to a smaller number with -c option"<<endl;
+			exit(0);
+		}
 	}
 	for(int i=0;i<CPUNUM;++i)
 		pthread_join(threads[i],NULL);

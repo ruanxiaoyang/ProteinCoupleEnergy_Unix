@@ -115,15 +115,18 @@ void AprxDistMatx(vector<sarray<int> > & _multiarrid,const char & _distype,darra
 	darray<int> ttm=generatethreadid(rownum);	//thread task matrix
 	vector<getaprxdiststr> datastr(CPUNUM);		//transfer necessary var to structure before enter child thread function
 	pthread_t threads[CPUNUM];			//handle array holds handles of all child threads
+	int code=0;
 	for(int i=0;i<CPUNUM;++i)			//create "CPUNUM" threads
 	{
 		datastr[i]={&BKMATXvec,&_multiarrid,&distmatx,&varmatx,&ttm,_distype,_gma,i};
-		pthread_create(&threads[i],NULL,THaprxdist,(void*)&datastr[i]);			//create child thread and store handle in "handlearr"
+		code=pthread_create(&threads[i],NULL,THaprxdist,(void*)&datastr[i]);			//create child thread and store handle in "handlearr"
+		if(code!=0)
+		{	cout<<"Thread number exceeded system limit. You are running "<<CPUNUM<<" CPUs. Change to a smaller number with -c option"<<endl;
+			exit(0);
+		}
 	}
 	for(int i=0;i<CPUNUM;++i)
-	{
 		pthread_join(threads[i],NULL);
-	}
 	cout<<endl;
 }
 

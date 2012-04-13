@@ -3,7 +3,7 @@
 MSA - Multiple Sequences Alignment
 .SH SYNOPSIS
 .B MSA [options] 
-.I -f -B -d -i -w -p -I -a -r -D -O -o -h
+.I -f -B -d -i -w -p -I -a -r -D -O -o -c -h
 .SH AVAILABILITY
 Unix
 .SH DESCRIPTION
@@ -35,6 +35,8 @@ A simple call as "./MSA -f seq.fasta" will work assuming default settings. See O
 -O Whether to reorder the aligned sequences as their order of appearance in the input file. By default, sequences will be ordered according to phylogenetic tree.
 .TP
 -o [filename] Output alignment result to "filename". By default output to Res.msa.
+.TP
+-c [n] A number >0. The number of CPU to use.
 .TP
 -h open this help file  
 .SH AUTHOR

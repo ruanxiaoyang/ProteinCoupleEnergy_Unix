@@ -6,7 +6,7 @@ NNAAMMEE
        GloAlign - Global Alignment
 
 SSYYNNOOPPSSIISS
-       GGllooAAlliiggnn [[ooppttiioonnss]] _-_f _-_B _-_d _-_i _-_Y _-_p _-_g _-_D _-_r _-_o _-_h
+       GGllooAAlliiggnn [[ooppttiioonnss]] _-_f _-_B _-_d _-_i _-_Y _-_p _-_g _-_D _-_r _-_o _-_c _-_h
 
 AAVVAAIILLAABBIILLIITTYY
        Unix
@@ -51,6 +51,8 @@ OOPPTTIIOONNSS
 
        -o [filename] Specify the name of file to store the pairwise evolution‐
        ary distance. Default output to "Pairwise_Evo_Dist.txt".
+
+       -c [n] A number >0. The number of CPU to use.
 
        -h open this help file
 

@@ -48,7 +48,7 @@ void* _THpx2pmsastr(void* param)
         end=(thrdid+1)*quantum-1;
         else
                 end=size-1;
-        if(end>=size)
+        if(end>=size || start>=size)
                 return NULL;
 	_getpx2pmsa(*dtstr->combseq,start,end,*dtstr->comb,*dtstr->px2pmsa,dtstr->scaleup);	
 }
@@ -71,9 +71,14 @@ void _getpx2pmsa(darray<int> & _combseq,sarray<double> & _comb,darray<double> & 
 	px2pmsa.fast_resize(20,_combseq.getcnum(),0);
 	vector<getpx2pmsastr> dtstr(CPUNUM);
 	pthread_t threads[CPUNUM];
+	int code=0;
 	for(int i=0;i<CPUNUM;++i)
 	{	dtstr[i]={&_combseq,&_comb,&px2pmsa,_scaleup,i};
-		pthread_create(&threads[i],NULL,_THpx2pmsastr,(void*)(&dtstr[i]));
+		code=pthread_create(&threads[i],NULL,_THpx2pmsastr,(void*)(&dtstr[i]));
+		if(code!=0)
+		{	cout<<"Thread number exceeded system limit. You are running "<<CPUNUM<<" CPUs. Change to a smaller number with -c option"<<endl;
+			exit(0);
+		}
 	}
 	for(int i=0;i<CPUNUM;++i)
 		pthread_join(threads[i],NULL);
@@ -134,13 +139,13 @@ sarray<int> __lt_trhd(darray<int> & _posaacnt,const int & _j,const int & _trhd,c
 	return res;
 }
 
-void CPED(darray<int> & _combseq,sarray<double> & _comb,darray<double> & _ppt,const int & _sta,const int & _end,darray<int> & _posaacnt,const int & _thrd,vector<cpedstr> & cpedresvec)
+void CPED(darray<int> & _combseq,sarray<double> & _comb,darray<double> & _ppt,const int & _sta,const int & _end,darray<int> & _posaacnt,const int & _trhd,vector<cpedstr> & cpedresvec)
 {
 	darray<int> subcombseq;
 	darray<double> pps;
 	for(int j=_sta;j<=_end;++j)
 	{	cpedresvec[j].pos=-1;
-		cpedresvec[j].aaidarr=__lt_trhd(_posaacnt,j,_thrd,_combseq.getrnum());
+		cpedresvec[j].aaidarr=__lt_trhd(_posaacnt,j,_trhd,_combseq.getrnum());
 		if(cpedresvec[j].aaidarr.size()>0)
 		{	cpedresvec[j].pos=j;
 			cpedresvec[j].poscpedvec.resize(cpedresvec[j].aaidarr.size());	
@@ -179,7 +184,7 @@ void* _THCPED(void* param)
         end=(thrdid+1)*quantum-1;
         else
                 end=size-1;
-        if(end>=size)
+        if(end>=size || start>=size)
                 return NULL;
 	CPED(*dtstr->combseq,*dtstr->comb,*dtstr->ppt,start,end,*dtstr->posaacnt,dtstr->trhd,*dtstr->cpedresvec);
 }	
@@ -199,12 +204,17 @@ void CPED(darray<int> & _combseq,const int & _trhd,vector<cpedstr> & cpedresvec)
 
 	vector<getCPEDstr> dtstr(CPUNUM);
 	pthread_t threads[CPUNUM];
+	int code;
 	for(int i=0;i<CPUNUM;++i)
 	{	dtstr[i]={&_combseq,&comb,&posaacnt,&ppt,&cpedresvec,_trhd,i};
-		pthread_create(&threads[i],NULL,_THCPED,(void*)(&dtstr[i]));
+		code=pthread_create(&threads[i],NULL,_THCPED,(void*)(&dtstr[i]));
+		if(code!=0)
+		{	cout<<"Thread number exceeded system limit. You are running "<<CPUNUM<<" CPUs. Change to a smaller number with -c option"<<endl;
+			exit(0);
+		}
 	}
 	for(int i=0;i<CPUNUM;++i)
-		pthread_join(threads[i],NULL);
+		code=pthread_join(threads[i],NULL);
 }
 
 
@@ -284,9 +294,14 @@ void SED(darray<int> & _combseq,const int & _trhd,vector<cpedstr> & cpedresvec)
 	_getposaacnt(_combseq,posaacnt);		
 	vector<getSEDstr> dtstr(CPUNUM);
 	pthread_t threads[CPUNUM];
+	int code;
 	for(int i=0;i<CPUNUM;++i)
 	{	dtstr[i]={&_combseq,&posaacnt,&cpedresvec,_trhd,i};
-		pthread_create(&threads[i],NULL,_THSED,(void*)(&dtstr[i]));
+		code=pthread_create(&threads[i],NULL,_THSED,(void*)(&dtstr[i]));
+		if(code!=0)
+		{	cout<<"Thread number exceeded system limit. You are running "<<CPUNUM<<" CPUs. Change to a smaller number with -c option"<<endl;
+			exit(0);
+		}
 	}
 	for(int i=0;i<CPUNUM;++i)
 		pthread_join(threads[i],NULL);
@@ -295,11 +310,13 @@ void SED(darray<int> & _combseq,const int & _trhd,vector<cpedstr> & cpedresvec)
 
 
 //calculate coupling energe difference distribution
-void _getEDdist(vector<cpedstr> & _cpedresvec,darray<int> & _combseq,sarray<double> & qtl)
+int _getEDdist(vector<cpedstr> & _cpedresvec,darray<int> & _combseq,sarray<double> & qtl)
 {
 	int num=0,iter=0;
 	for(int i=0;i<_cpedresvec.size();++i)
 		num+=_cpedresvec[i].aaidarr.size()*_combseq.getcnum();
+	if(num==0)
+		return num;
 	sarray<double> distribution(num);
 	for(int i=0;i<_cpedresvec.size();++i)
 	{	if(!_cpedresvec[i].aaidarr.empty())
@@ -311,20 +328,25 @@ void _getEDdist(vector<cpedstr> & _cpedresvec,darray<int> & _combseq,sarray<doub
 			}
 		}
 	}
+	
 	QuickSort(distribution,0,distribution.size()-1);
 	iter=0;				//remove all zero
 	while(iter<distribution.size() && distribution[iter]==0)
 	{	iter+=1;
 	}
 	distribution=distribution.subseq(iter,distribution.size()-1);
+	if(distribution.size()==0)
+		return 0;
 	int size;
 	size=distribution.size()-1;
 	qtl.resize(10);
 	double qtlevel=0.9;
 	for(int i=0;i<10;++i)
-	{	qtl[i]=distribution[(int)((double)size*qtlevel)];
+	{
+		qtl[i]=distribution[(int)((double)size*qtlevel)];
 		qtlevel+=0.01;
 	}
+	return distribution.size();
 }
 
 void DspED(vector<cpedstr> & _cpedresvec,darray<int> & _combseq,const int & _mask,ostream & os=cout)
@@ -337,8 +359,14 @@ void DspED(vector<cpedstr> & _cpedresvec,darray<int> & _combseq,const int & _mas
  
 	int iter=0;
 	sarray<double> qtl;
-	_getEDdist(_cpedresvec,_combseq,qtl);
-	
+
+	int flag=0;
+	flag=_getEDdist(_cpedresvec,_combseq,qtl);
+	if(flag==0)
+	{	os<<"No coupling sites found"<<endl;
+		return;
+	}
+
 	os<<"Quantile 90-99"<<endl<<qtl<<endl<<endl;
 
         for(int j=0;j<_cpedresvec.size();++j)

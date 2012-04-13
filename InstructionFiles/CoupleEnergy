@@ -6,7 +6,7 @@ NNAAMMEE
        CoupleEnergy - Coupling energy estimation
 
 SSYYNNOOPPSSIISS
-       CCoouupplleeEEnneerrggyy [[ooppttiioonnss]] _-_f _-_t _-_n _-_m _-_h
+       CCoouupplleeEEnneerrggyy [[ooppttiioonnss]] _-_f _-_t _-_n _-_m _-_c _-_h
 
 AAVVAAIILLAABBIILLIITTYY
        Unix
@@ -43,6 +43,8 @@ OOPPTTIIOONNSS
        pling energy(CE) change <95% quantile of all CE in the current round of
        analysis will not be displayed. Similarly, for m=9, only sites with  CE
        >=99% quantile will be displayed.
+
+       -c [n] A number >0. The number of CPU to use.
 
        -h open this help file
 

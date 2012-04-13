@@ -45,7 +45,7 @@ CRScoredb(RelatedOddsdb,10,PAMvec);
 	int id=250,blosumid=62,gp=-1,gma=1,rangeid;
 	sarray<int> range;
 	ifstream rangefile;
-	while((o=getopt(argc,argv,"f:Bd:i:Yp:g:Dr:o:h"))!=-1)
+	while((o=getopt(argc,argv,"f:Bd:i:Yp:g:Dr:o:c:h"))!=-1)
 	{
 		switch(o)
 		{
@@ -90,6 +90,8 @@ CRScoredb(RelatedOddsdb,10,PAMvec);
 				range=range.unique();
 				break;
 			case 'o':dmpath=optarg;
+				break;
+			case 'c':CPUNUM=stn<int>(optarg);
 				break;
 			case 'h':system("less InstructionFiles/GloAlign");
 				exit(0);

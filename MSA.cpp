@@ -48,7 +48,7 @@ ImpBLOSUM("BLOSUM_score.txt",BLOSUMvec);
         int id=249,blosumid=61,gp=-3,rangeid,wlen=2,anchor=80;
         sarray<int> range;
         ifstream rangefile;
-        while((o=getopt(argc,argv,"f:Bd:i:w:p:Ia:r:ODo:h"))!=-1)
+        while((o=getopt(argc,argv,"f:Bd:i:w:p:Ia:r:ODo:c:h"))!=-1)
         {
                 switch(o)
                 {
@@ -103,6 +103,8 @@ ImpBLOSUM("BLOSUM_score.txt",BLOSUMvec);
 			case 'D':seqname='n';
 				break;
 			case 'o':MSArespath=optarg;
+				break;
+			case 'c':CPUNUM=stn<int>(optarg);
 				break;
 			case 'h':system("less InstructionFiles/MSA");
 				exit(0);

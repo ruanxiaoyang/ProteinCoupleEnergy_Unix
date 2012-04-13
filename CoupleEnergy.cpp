@@ -32,7 +32,7 @@ int main(int argc,char* argv[])
 	char* fpath=NULL;
 	char o,type='c';
 	int mask=5,trhd=5;
-	while((o=getopt(argc,argv,"f:t:n:m:h"))!=-1)
+	while((o=getopt(argc,argv,"f:t:n:m:c:h"))!=-1)
 	{	switch (o)
 		{	case 'f':fpath=optarg;
 				break;
@@ -49,6 +49,8 @@ int main(int argc,char* argv[])
 				{	cout<<"Mask need a value >=0 and <=9, autoset to 5"<<endl;
 					mask=5;
 				}
+				break;
+			case 'c':CPUNUM=stn<int>(optarg);
 				break;
 			case 'h':system("less InstructionFiles/CoupleEnergy");
 				exit(0);
@@ -76,5 +78,4 @@ int main(int argc,char* argv[])
 	else if(type=='c')
 		CPED(combseq,trhd,cpedresvec);
 	DspED(cpedresvec,combseq,mask);
-
 }

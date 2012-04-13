@@ -77,11 +77,15 @@ void NWwp(vector<darray<int> > & _BKMATXvec,vector<sarray<int> > & _seqdb, vecto
 	darray<int> ttm=generatethreadid(_seqdb.size());
 	vector<getwpstr<type> > dtstr(CPUNUM);
 	pthread_t threads[CPUNUM];
+	int code=0;
 	for(int i=0;i<CPUNUM;++i)
-	{
-		dtstr[i]={&_BKMATXvec,&_seqdb,&_scmatxvec,&_distmatx,_gappnt,&alnmatxvec,&alnscore,_st,_scmatxid,&ttm,i};
-		pthread_create(&threads[i],NULL,THNWwp<type>,(void*)&dtstr[i]);		//THNWwp<type> is necessary for template
-	}	
+	{	dtstr[i]={&_BKMATXvec,&_seqdb,&_scmatxvec,&_distmatx,_gappnt,&alnmatxvec,&alnscore,_st,_scmatxid,&ttm,i};
+		code=pthread_create(&threads[i],NULL,THNWwp<type>,(void*)&dtstr[i]);	//THNWwp<type> is necessary for template
+		if(code != 0)
+		{	cout<<"Thread number exceeded system limit. You are running "<<CPUNUM<<" CPUs. Change to a smaller number with -c option"<<endl;
+			exit(0);
+		}
+	}
 	for(int i=0;i<CPUNUM;++i)
 		pthread_join(threads[i],NULL);
 }

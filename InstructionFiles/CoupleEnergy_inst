@@ -3,7 +3,7 @@
 CoupleEnergy - Coupling energy estimation 
 .SH SYNOPSIS
 .B CoupleEnergy [options] 
-.I -f -t -n -m -h
+.I -f -t -n -m -c -h
 .SH AVAILABILITY
 Unix
 .SH DESCRIPTION
@@ -21,6 +21,8 @@ A simple call as "./CoupleEnergy -f test.Res.msa" will work assuming default set
 -n [n] A number >=3 and <=half total sequence number. For the sake of statistical power, only positions with target mutations and other AA number meet this threshold are considered analyzable. Default is 5.
 .TP
 -m [n] A number >=0 and <=9 [default = 5]. If m=5, then sites with coupling energy(CE) change <95% quantile of all CE in the current round of analysis will not be displayed. Similarly, for m=9, only sites with CE >=99% quantile will be displayed.       
+.TP
+-c [n] A number >0. The number of CPU to use.
 .TP
 -h open this help file  
 .SH AUTHOR

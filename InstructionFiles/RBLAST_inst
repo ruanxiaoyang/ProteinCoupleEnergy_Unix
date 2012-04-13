@@ -3,7 +3,7 @@
 RBLAST - Glocal Alignment
 .SH SYNOPSIS
 .B RBLAST [options] 
-.I -f -B -d -i -w -p -D -r -o -h
+.I -f -B -d -i -w -p -D -r -o -c -h
 .SH AVAILABILITY
 Unix
 .SH DESCRIPTION
@@ -29,6 +29,8 @@ A simple call as "./RBLAST -f seq.fasta" will work assuming default settings. Se
 -r [range] Specify the indices of sequences that will be analyzed. Accept format like 1,5-7, which will analyze sequences with index 1,5,6,7 in the input file. Also accept a file with target sequences' indices listed on separate lines.
 .TP
 -o [filename] Specify the name of file to store the pairwise evolutionary distance. Default output to "Pairwise_Block_Evo_Dist.txt".
+.TP
+-c [n] A number >0. The number of CPU to use.
 .TP
 -h open this help file  
 .SH AUTHOR
